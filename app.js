@@ -25,8 +25,33 @@ function calculate_results(event) {
     TOTALINTEREST.value = ((MONTHLY * CALCULATEDPAYMENTS) - PRINCIPLE).toFixed(2);
   } else {
     console.log("Check yo self!");
+    show_error('Please check your numbers.');
   }
 
   event.preventDefault();
 }
 
+function show_error(error) {
+  // Create div element
+  const ERRORDIV = document.createElement('div');
+  
+  // Get elements
+  const CARD = document.querySelector('.card');
+  const HEADING = document.querySelector('.heading');
+
+  // Add class
+  ERRORDIV.className = 'alert alert-danger';
+
+  // Create text node and append to div element
+  ERRORDIV.append(error);
+
+  // Insert error above heading
+  CARD.insertBefore(ERRORDIV, HEADING);
+
+  // Clear error after 3 seconds
+  setTimeout(clearError, 3000);
+}
+
+function clearError() {
+  document.querySelector('.alert').remove();
+}
