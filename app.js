@@ -2,10 +2,10 @@
 document.querySelector('#loan-form').addEventListener('submit', calculate_results, false);
 
 function calculate_results(event) {
-  
+  // Assign elements to variables
   let amount = document.querySelector('#amount');
   let interest = document.querySelector('#interest');
-  let years = document.querySelector('#years');
+  let months = document.querySelector('#months');
   let monthlyPayment = document.querySelector('#monthly-payment');
   let totalPayment  = document.querySelector('#total-payment');
   let totalInterest = document.querySelector('#total-interest');
@@ -13,7 +13,7 @@ function calculate_results(event) {
   // Convert to a float
   let principle = parseFloat(amount.value);
   let calculatedInterest = parseFloat(interest.value) / 100 / 12;
-  let calculatedPayments = parseFloat(years.value) * 12;
+  let calculatedPayments = parseFloat(months.value);
 
   // Compute monthly payment
   let x = Math.pow(1 + calculatedInterest, calculatedPayments);
