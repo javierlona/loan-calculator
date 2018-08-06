@@ -3,51 +3,44 @@ document.querySelector('#loan-form').addEventListener('submit', calculate_result
 
 function calculate_results(event) {
   
-  const AMOUNT = document.querySelector('#amount');
-  const INTEREST = document.querySelector('#interest');
-  const YEARS = document.querySelector('#years');
-  const MONTHLYPAYMENT = document.querySelector('#monthly-payment');
-  const TOTALPAYMENT  = document.querySelector('#total-payment');
-  const TOTALINTEREST = document.querySelector('#total-interest');
+  let amount = document.querySelector('#amount');
+  let interest = document.querySelector('#interest');
+  let years = document.querySelector('#years');
+  let monthlyPayment = document.querySelector('#monthly-payment');
+  let totalPayment  = document.querySelector('#total-payment');
+  let totalInterest = document.querySelector('#total-interest');
 
   // Convert to a float
-  const PRINCIPLE = parseFloat(AMOUNT.value);
-  const CALCULATEDINTEREST = parseFloat(INTEREST.value) / 100 / 12;
-  const CALCULATEDPAYMENTS = parseFloat(YEARS.value) * 12;
+  let principle = parseFloat(amount.value);
+  let calculatedInterest = parseFloat(interest.value) / 100 / 12;
+  let calculatedPayments = parseFloat(years.value) * 12;
 
   // Compute monthly payment
-  const X = Math.pow(1 + CALCULATEDINTEREST, CALCULATEDPAYMENTS);
-  const MONTHLY = (PRINCIPLE * X * CALCULATEDINTEREST) / (X - 1);
+  let X = Math.pow(1 + calculatedInterest, calculatedPayments);
+  let monthly = (principle * X * calculatedInterest) / (X - 1);
 
-  if(isFinite(MONTHLY)) {
-    MONTHLYPAYMENT.value = MONTHLY.toFixed(2);
-    TOTALPAYMENT.value = (MONTHLY * CALCULATEDPAYMENTS).toFixed(2);
-    TOTALINTEREST.value = ((MONTHLY * CALCULATEDPAYMENTS) - PRINCIPLE).toFixed(2);
+  if(isFinite(monthly)) {
+    monthlyPayment.value = monthly.toFixed(2);
+    totalPayment.value = (monthly * calculatedPayments).toFixed(2);
+    totalInterest.value = ((monthly * calculatedPayments) - principle).toFixed(2);
   } else {
-    console.log("Check yo self!");
     show_error('Please check your numbers.');
   }
-
   event.preventDefault();
 }
 
 function show_error(error) {
   // Create div element
-  const ERRORDIV = document.createElement('div');
-  
+  let errorDiv = document.createElement('div');
   // Get elements
-  const CARD = document.querySelector('.card');
-  const HEADING = document.querySelector('.heading');
-
+  let card = document.querySelector('.card');
+  let heading = document.querySelector('.heading');
   // Add class
-  ERRORDIV.className = 'alert alert-danger';
-
+  errorDiv.className = 'alert alert-danger';
   // Create text node and append to div element
-  ERRORDIV.append(error);
-
+  errorDiv.append(error);
   // Insert error above heading
-  CARD.insertBefore(ERRORDIV, HEADING);
-
+  card.insertBefore(errorDiv, heading);
   // Clear error after 3 seconds
   setTimeout(clearError, 3000);
 }
