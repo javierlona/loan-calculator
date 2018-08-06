@@ -16,8 +16,8 @@ function calculate_results(event) {
   let calculatedPayments = parseFloat(years.value) * 12;
 
   // Compute monthly payment
-  let X = Math.pow(1 + calculatedInterest, calculatedPayments);
-  let monthly = (principle * X * calculatedInterest) / (X - 1);
+  let x = Math.pow(1 + calculatedInterest, calculatedPayments);
+  let monthly = (principle * x * calculatedInterest) / (x - 1);
 
   if(isFinite(monthly)) {
     monthlyPayment.value = monthly.toFixed(2);
